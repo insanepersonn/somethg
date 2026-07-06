@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Required</title>
+    <style>
+        /* Base styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            transition: background-color 0.5s ease;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Fake reCAPTCHA Box Styles */
+        #captcha-container {
+            background-color: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 3px;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
+            width: 300px;
+            height: 74px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            cursor: pointer;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* The Checkbox */
+        #captcha-checkbox {
+            width: 28px;
+            height: 28px;
+            border: 2px solid #c1c1c1;
+            border-radius: 2px;
+            background-color: #fff;
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #captcha-checkbox:hover {
+            border-color: #b2b2b2;
+        }
+
+        .captcha-text {
+            font-size: 14px;
+            color: #222;
+        }
+
+        /* Video Styles */
+        #video-container {
+            display: none; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 5;
+        }
+
+        #video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            pointer-events: none; /* Prevents them from pausing it! */
+        }
+
+        /* Counter Styles */
+        #counter-container {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px #000000;
+            z-index: 9999;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fake Captcha Box -->
+    <div id="captcha-container" onclick="triggerRickroll()">
+        <div id="captcha-checkbox"></div>
+        <div class="captcha-text">I'm not a robot</div>
+    </div>
+
+    <!-- Zero-Ad Local Video Player -->
+    <div id="video-container">
+        <!-- This tells the code to look for the exact file name: rickroll.mp4 -->
+        <video id="rickroll-video" loop>
+            <source src="rickroll.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- The Global Counter -->
+    <div id="counter-container">
+        total rickrolled: <span id="counter">Updating...</span>
+    </div>
+
+    <script>
+        // This is a free live API database. By adding "/up" at the end, 
+        // it permanently adds +1 to the database every time it runs.
+        const globalCounterApi = 'https://api.counterapi.dev/v1/ultimate-rickroll-prank-99/total_victims/up';
+
+        function triggerRickroll() {
+            // 1. Hide the Captcha box and turn the background black
+            document.getElementById('captcha-container').style.display = 'none';
+            document.body.style.backgroundColor = 'black';
+
+            // 2. Show the video and the counter
+            document.getElementById('video-container').style.display = 'block';
+            document.getElementById('counter-container').style.display = 'block';
+
+            // 3. Play the local video instantly (Will have sound!)
+            const video = document.getElementById('rickroll-video');
+            video.play();
+
+            // 4. Hit the global counter API to permanently add 1 for everyone
+            fetch(globalCounterApi)
+                .then(response => response.json())
+                .then(data => {
+                    // Get the true global number from the database and format it with commas
+                    document.getElementById('counter').textContent = data.count.toLocaleString();
+                })
+                .catch(error => {
+                    // Fallback just in case they have an adblocker that disables APIs
+                    document.getElementById('counter').textContent = "1,834,030";
+                });
+        }
+    </script>
+
+</body>
+</html>
