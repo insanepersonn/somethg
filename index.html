@@ -3,192 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verification Required</title>
+    <title>Download Your File</title>
     <style>
         /* Base styles */
-        body, html {
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            transition: background-color 0.5s ease;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            /* Modern gradient background */
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #333;
         }
 
-        /* Loading Screen Styles */
-        #loading-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #555;
-            z-index: 20;
-        }
-
-        .spinner {
-            border: 4px solid #e0e0e0;
-            border-top: 4px solid #3498db; /* Blue spinning part */
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Fake reCAPTCHA Box Styles (Hidden initially) */
-        #captcha-container {
-            display: none; /* Stays hidden until the page fully loads */
+        /* Card design */
+        .download-card {
             background-color: #ffffff;
-            border: 1px solid #d3d3d3;
-            border-radius: 3px;
-            box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
-            width: 300px;
-            height: 74px;
-            align-items: center;
-            padding: 0 10px;
-            cursor: pointer;
-            box-sizing: border-box;
-            position: relative;
-            z-index: 10;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            transition: transform 0.3s ease;
         }
 
-        /* The Checkbox */
-        #captcha-checkbox {
-            width: 28px;
-            height: 28px;
-            border: 2px solid #c1c1c1;
-            border-radius: 2px;
-            background-color: #fff;
-            margin-right: 15px;
+        .download-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Icon styling */
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            background-color: #f0f4ff;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0 auto 20px auto;
         }
 
-        #captcha-checkbox:hover {
-            border-color: #b2b2b2;
+        .icon-container svg {
+            width: 35px;
+            height: 35px;
+            fill: #6e8efb;
         }
 
-        .captcha-text {
-            font-size: 14px;
+        /* Typography */
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
             color: #222;
         }
 
-        /* Video Styles */
-        #video-container {
-            display: none; 
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: black;
-            z-index: 5;
+        p {
+            margin: 0 0 20px 0;
+            font-size: 15px;
+            color: #666;
+            line-height: 1.5;
         }
 
-        #video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            pointer-events: none; /* Prevents pausing */
-        }
-
-        /* Counter Styles */
-        #counter-container {
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-            color: #ffffff;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 32px;
+        .file-info {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 25px;
             font-weight: bold;
-            text-shadow: 3px 3px 6px #000000;
-            z-index: 9999;
-            pointer-events: none;
+        }
+
+        /* Button styling */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 8px 15px rgba(110, 142, 251, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            box-shadow: 0 15px 20px rgba(110, 142, 251, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading-container">
-        <div class="spinner"></div>
-        <div>Loading Verification...</div>
+    <div class="download-card">
+        <!-- Big decorative icon -->
+        <div class="icon-container">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm9-2v6H3v-6H1v8h22v-8h-2z"/>
+            </svg>
+        </div>
+
+        <h1>Your File is Ready</h1>
+        <p>Click the button below to start your secure download securely.</p>
+        
+        <!-- Optional: You can put your file size or version here -->
+        <div class="file-info">Filename.zip • 15.4 MB</div>
+
+        <!-- REPACE "your-file.zip" WITH YOUR ACTUAL FILE NAME -->
+        <a href="your-file.zip" download class="download-btn">
+            <!-- Small icon inside button -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            Download Now
+        </a>
     </div>
-
-    <!-- Fake Captcha Box -->
-    <div id="captcha-container" onclick="triggerRickroll()">
-        <div id="captcha-checkbox"></div>
-        <div class="captcha-text">I'm not a robot</div>
-    </div>
-
-    <!-- Zero-Ad Local Video Player -->
-    <div id="video-container">
-        <video id="rickroll-video" loop preload="auto">
-            <source src="rickroll.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-    <!-- The Global Counter -->
-    <div id="counter-container">
-        total rickrolled: <span id="counter">Updating...</span>
-    </div>
-
-    <script>
-        // WAIT FOR THE PAGE TO LOAD
-        // This listens for the entire page (and the local video file) to be fully ready
-        window.addEventListener('load', function() {
-            // Give it an extra split second just to make the loading spinner look realistic
-            setTimeout(() => {
-                // 1. Hide the loading screen
-                document.getElementById('loading-container').style.display = 'none';
-                
-                // 2. Show the "I'm not a bot" button
-                document.getElementById('captcha-container').style.display = 'flex';
-            }, 800); 
-        });
-
-        // The live Global Database API
-        const globalCounterApi = 'https://api.counterapi.dev/v1/ultimate-rickroll-prank-99/total_victims/up';
-
-        function triggerRickroll() {
-            // 1. Hide the Captcha box and turn the background black
-            document.getElementById('captcha-container').style.display = 'none';
-            document.body.style.backgroundColor = 'black';
-
-            // 2. Show the video and the counter
-            document.getElementById('video-container').style.display = 'block';
-            document.getElementById('counter-container').style.display = 'block';
-
-            // 3. Play the local video instantly
-            const video = document.getElementById('rickroll-video');
-            video.play();
-
-            // 4. Hit the global counter API to permanently add 1 for everyone
-            fetch(globalCounterApi)
-                .then(response => response.json())
-                .then(data => {
-                    // Update the text on screen with the global count (e.g. 1,234)
-                    document.getElementById('counter').textContent = data.count.toLocaleString();
-                })
-                .catch(error => {
-                    // Fallback in case they have an adblocker blocking APIs
-                    document.getElementById('counter').textContent = "1,834,030";
-                });
-        }
-    </script>
 
 </body>
 </html>
